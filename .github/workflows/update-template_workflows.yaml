@@ -1,5 +1,6 @@
 name: Update Github Workflow Templates
 
+on:
   push:
     branches:
       - main
@@ -19,7 +20,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "::set-output name=matrix::$(python scripts/list_organization_repositories.py)"
-  
+
   update_repository_workflow_templates:
     name: "Check Event"
     runs-on: ubuntu-latest
@@ -36,4 +37,4 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          python scripts/update_repository_workflow_templates.py ${{ matrix.repository }} 
+          python scripts/update_repository_workflow_templates.py ${{ matrix.repository }}
