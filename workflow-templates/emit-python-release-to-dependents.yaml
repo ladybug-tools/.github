@@ -1,0 +1,36 @@
+name: Emit Release Event to Dependents
+
+on:
+  release:
+    types:
+      - created
+jobs:
+  wait_for_pypi:
+    steps:
+      - name: sleep for 5 minutes for PyPI update
+        run: sleep 300s
+        shell: bash
+
+  get_dependents:
+    needs: wait_for_pypi
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - id: set-matrix
+        run: |
+          echo "::set-output name=matrix::$(cat .dependents.json)"
+
+  emit_event_to_dependent:
+    needs: get_dependents
+    strategy:
+      matrix: ${{fromJson(needs.get_dependents.outputs.matrix)}}
+    steps:
+      - name: Update dependent
+        env:
+          DISPATCH_REPO: ${{ matrix.repository }}
+          DEPS_TOKEN: ${{ secrets.DEPS_UPDATING }}
+        run: |
+          curl -X POST https://api.github.com/repos/$DISPATCH_REPO/dispatches \
+          -H "Accept: application/vnd.github.everest-preview+json" \
+          -d '{"event_type": "new_dependency_version", "client_payload": {"version": "${{ github.event.tag_name }}", "dependency_name": "${{ github.event.repository.name }}"}}' \
+          -u ladybugbot:$DEPS_TOKEN
