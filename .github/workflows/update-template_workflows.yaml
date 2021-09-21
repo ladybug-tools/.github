@@ -3,7 +3,7 @@ name: Update Github Workflow Templates
 on:
   push:
     branches:
-      - main
+      - master
 jobs:
   list_organization_repositories:
     runs-on: ubuntu-latest

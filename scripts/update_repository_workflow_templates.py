@@ -21,6 +21,7 @@ WORKFLOW_TEMPLATES = get_workflow_templates()
 
 def clone_repository(repo_name: str) -> pathlib.Path:
     clone_url = f"https://{ACCESS_TOKEN}@github.com/{ORGANIZATION_NAME}/{repo_name}.git"
+    os.makedirs('tmp', exist_ok=True)
     repo_path = pathlib.Path(f'tmp/{repo_name}').absolute()
     subprocess.call(["git", "clone", clone_url, repo_path.as_posix()])
     return repo_path
@@ -44,10 +45,11 @@ def replace_templates_in_repository(repo_path: pathlib.Path):
 def add_commit_and_push(repo_path: pathlib.Path):
     cwd = repo_path.as_posix()
     repo_name =  os.path.basename(os.path.normpath(repo_path))
-    subprocess.call(["git", "add", "."], cwd=cwd)
-    subprocess.call(["git", "commit", "-m", 'ci(actions): update workflows from templates'], cwd=cwd)
-    push_url = f"https://{ACCESS_TOKEN}@github.com/{ORGANIZATION_NAME}/{repo_name}.git"
-    subprocess.call(["git", "push", push_url], cwd=cwd)
+    print(f"fake git add and push to {repo_name}")
+    # subprocess.call(["git", "add", "."], cwd=cwd)
+    # subprocess.call(["git", "commit", "-m", 'ci(actions): update workflows from templates'], cwd=cwd)
+    # push_url = f"https://{ACCESS_TOKEN}@github.com/{ORGANIZATION_NAME}/{repo_name}.git"
+    # subprocess.call(["git", "push", push_url], cwd=cwd)
     
 def update_repo(repo_name):
     repo_path = clone_repository(repo_name)
@@ -55,5 +57,5 @@ def update_repo(repo_name):
     add_commit_and_push(repo_path)
 
 if __name__ == "__main__":
-    repo = sys.argv[0]
+    repo = sys.argv[1]
     update_repo(repo)
