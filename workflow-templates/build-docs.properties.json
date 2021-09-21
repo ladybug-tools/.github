@@ -1,0 +1,13 @@
+{
+  "name": "Build Sphinx Docs",
+  "description": "Builds Sphinx docs and pushes them to Github Pages when a new release is made on the repository.",
+  "iconName": "sphinx",
+  "categories": [
+    "Python",
+    "Documentation"
+  ],
+  "filePatterns": [
+    "setup.py",
+    "dev-requirements.txt"
+  ]
+}
