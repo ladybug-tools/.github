@@ -1,0 +1,12 @@
+{
+  "name": "Push to PyPi on release",
+  "description": "Pushes a repository's python package to PyPi when a new release is made.",
+  "iconName": "python",
+  "categories": [
+    "Python",
+    "Packages"
+  ],
+  "filePatterns": [
+    "setup.py"
+  ]
+}

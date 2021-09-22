@@ -1,0 +1,12 @@
+{
+  "name": "Bump Python dependency version",
+  "description": "Updates the version of a Python dependency when receiving a `new_dependency_version` repository dispatch event.",
+  "iconName": "python",
+  "categories": [
+    "Python",
+    "Dependencies"
+  ],
+  "filePatterns": [
+    "requirements.txt"
+  ]
+}

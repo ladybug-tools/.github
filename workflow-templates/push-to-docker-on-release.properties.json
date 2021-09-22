@@ -1,0 +1,12 @@
+{
+  "name": "Push to Docker on release",
+  "description": "Pushes a repository's Dockerfile to Dockerhub when a new release is made.",
+  "iconName": "docker",
+  "categories": [
+    "Docker",
+    "Packages"
+  ],
+  "filePatterns": [
+    "Dockerfile"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "Emit Python Release",
+  "description": "Emits a repository dispatch event to all repositories specified in the `.dependents.json` file.",
+  "iconName": "python",
+  "categories": [
+    "Python",
+    "Dependencies"
+  ],
+  "filePatterns": [
+    ".dependents.json"
+  ]
+}
